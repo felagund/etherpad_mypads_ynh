@@ -205,9 +205,10 @@ ynh_add_systemd_config
 ynh_script_progression --message="Installing Etherpad plugins..." --weight=90
 
 pushd "$final_path"
-	
-	# Framapad - User Pad Contents font size can be set in settings, this does not effect other peoples views
-	ynh_exec_as $app env $ynh_node_load_PATH $ynh_npm install --no-save ep_font_size@${ep_font_size_version}
+	if [ $mypads -eq 1 ]; then
+		# Framapad - Groups and private pads for Etherpad
+		ynh_exec_as $app env $ynh_node_load_PATH $ynh_npm install --no-save ep_mypads@${mypads_version}
+	fi
 popd
 
 #=================================================
